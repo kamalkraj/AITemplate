@@ -78,8 +78,53 @@ def compile_unet(
     text_embeddings_pt_ait = Tensor(
         [batch_size, 64, hidden_dim], name="input2", is_input=True
     )
+    dbar_0_pt_ait = Tensor(
+        [batch_size, 64, 64, 320], name="input3", is_input=True
+    )
+    dbar_1_pt_ait = Tensor(
+        [batch_size, 64, 64, 320], name="input4", is_input=True
+    )
+    dbar_2_pt_ait = Tensor(
+        [batch_size, 64, 64, 320], name="input5", is_input=True
+    )
+    dbar_3_pt_ait = Tensor(
+        [batch_size, 32, 32, 320], name="input6", is_input=True
+    )
+    dbar_4_pt_ait = Tensor(
+        [batch_size, 32, 32, 640], name="input7", is_input=True
+    )
+    dbar_5_pt_ait = Tensor(
+        [batch_size, 32, 32, 640], name="input8", is_input=True
+    )
+    dbar_6_pt_ait = Tensor(
+        [batch_size, 16, 16, 640], name="input9", is_input=True
+    )
+    dbar_7_pt_ait = Tensor(
+        [batch_size, 16, 16, 1280], name="input10", is_input=True
+    )
+    dbar_8_pt_ait = Tensor(
+        [batch_size, 16, 16, 1280], name="input11", is_input=True
+    )
+    dbar_9_pt_ait = Tensor(
+        [batch_size, 8, 8, 1280], name="input12", is_input=True
+    )
+    dbar_10_pt_ait = Tensor(
+        [batch_size, 8, 8, 1280], name="input13", is_input=True
+    )
+    dbar_11_pt_ait = Tensor(
+        [batch_size, 8, 8, 1280], name="input14", is_input=True
+    )
+    mid_block_additional_residual_pt_ait = Tensor(
+        [batch_size, 8, 8, 1280], name="input15", is_input=True
+    ) 
 
-    Y = ait_mod(latent_model_input_ait, timesteps_ait, text_embeddings_pt_ait)
+
+
+    Y = ait_mod(latent_model_input_ait, timesteps_ait, text_embeddings_pt_ait, 
+                dbar_0_pt_ait, dbar_1_pt_ait, dbar_2_pt_ait, dbar_3_pt_ait,
+                dbar_4_pt_ait, dbar_5_pt_ait, dbar_6_pt_ait, dbar_7_pt_ait,
+                dbar_8_pt_ait, dbar_9_pt_ait, dbar_10_pt_ait, dbar_11_pt_ait,
+                mid_block_additional_residual_pt_ait)
     mark_output(Y)
 
     target = detect_target(

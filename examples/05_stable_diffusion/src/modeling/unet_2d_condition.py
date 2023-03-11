@@ -180,6 +180,8 @@ class UNet2DConditionModel(nn.Module):
         sample,
         timesteps,
         encoder_hidden_states,
+        dbar_0, dbar_1, dbar_2, dbar_3, dbar_4, dbar_5, dbar_6, dbar_7, dbar_8, dbar_9, dbar_10, dbar_11,
+        mid_block_additional_residual,
         return_dict: bool = True,
     ):
         """r
@@ -220,10 +222,25 @@ class UNet2DConditionModel(nn.Module):
 
             down_block_res_samples += res_samples
 
+        down_block_additional_residuals = (dbar_0,dbar_1,dbar_2,dbar_3,dbar_4,dbar_5,dbar_6,dbar_7,dbar_8,dbar_9,dbar_10,dbar_11,)
+        if down_block_additional_residuals is not None:
+            new_down_block_res_samples = ()
+
+            for down_block_res_sample, down_block_additional_residual in zip(
+                down_block_res_samples, down_block_additional_residuals
+            ):
+                down_block_res_sample += down_block_additional_residual
+                new_down_block_res_samples += (down_block_res_sample,)
+
+            down_block_res_samples = new_down_block_res_samples
+
         # 4. mid
         sample = self.mid_block(
             sample, emb, encoder_hidden_states=encoder_hidden_states
         )
+
+        if mid_block_additional_residual is not None:
+            sample += mid_block_additional_residual
 
         # 5. up
         for upsample_block in self.up_blocks:

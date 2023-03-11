@@ -31,7 +31,7 @@ from src.compile_lib.compile_vae import compile_vae
 @click.command()
 @click.option(
     "--local-dir",
-    default="./tmp/diffusers-pipeline/stabilityai/stable-diffusion-v2",
+    default="./tmp/diffusers-pipeline/runwayml/stable-diffusion-v1-5",
     help="the local diffusers pipeline directory",
 )
 @click.option("--width", default=512, help="Width of generated image")
