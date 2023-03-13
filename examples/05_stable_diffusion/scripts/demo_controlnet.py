@@ -43,7 +43,7 @@ image = np.concatenate([image, image, image], axis=2)
 canny_image = Image.fromarray(image)
 
 controlnet = ControlNetModel.from_pretrained("lllyasviel/sd-controlnet-canny", torch_dtype=torch.float16)
-
+controlnet.enable_xformers_memory_efficient_attention()
 pipe = StableDiffusionControlnetAITPipeline.from_pretrained(
     "runwayml/stable-diffusion-v1-5", controlnet=controlnet, torch_dtype=torch.float16, torch_device="cuda"
 ).to("cuda")
